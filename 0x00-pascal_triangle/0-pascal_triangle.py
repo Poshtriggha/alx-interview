@@ -1,4 +1,5 @@
 def pascal_triangle(n):
+    
     """
     Generate Pascal's triangle for n rows.
     """
