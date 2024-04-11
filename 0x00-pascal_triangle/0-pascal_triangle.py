@@ -1,23 +1,25 @@
 #!/usr/bin/python3
+"""Functions for generating Pascal's triangle."""
 
-def pascal_triangle(n):
-    """
-    Generate Pascal's triangle for n rows.
-    """
-    triangle = []
 
-    if n <= 0:
-        return triangle
+def generate_line(n):
+    """Generate a single line of Pascal's triangle."""
+    line = [1]
 
     for i in range(n):
-        row = [1] * (i + 1)
-        for j in range(1, i):
-            row[j] = triangle[i - 1][j - 1] + triangle[i - 1][j]
-        triangle.append(row)
+        line.append((line[i] * (n - i) // (i + 1)))
+
+    return line
+
+
+def generate_pascal_triangle(n):
+    """Generate Pascal's triangle with n rows."""
+    if n <= 0:
+        return []
+
+    triangle = []
+
+    for i in range(n):
+        triangle.append(generate_line(i))
 
     return triangle
-
-if __name__ == "__main__":
-    triangle = pascal_triangle(5)
-    for row in triangle:
-        print("[{}]".format(",".join(map(str, row))))
