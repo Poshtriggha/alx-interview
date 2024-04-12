@@ -3,7 +3,6 @@
 
 
 def generate_line(n):
-    """Generate a single line of Pascal's triangle."""
     line = [1]
 
     for i in range(n):
@@ -13,7 +12,6 @@ def generate_line(n):
 
 
 def generate_pascal_triangle(n):
-    """Generate Pascal's triangle with n rows."""
     if n <= 0:
         return []
 
