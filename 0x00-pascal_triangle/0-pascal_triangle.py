@@ -2,24 +2,6 @@
 """Functions for generating Pascal's triangle."""
 
 
-def generate_line(n):
-    """
-    Generate a single line of Pascal's triangle.
-
-    Parameters:
-        n (int): The row index of the line to generate.
-
-    Returns:
-        list: The generated line of Pascal's triangle.
-    """
-    line = [1]
-
-    for i in range(n):
-        line.append((line[i] * (n - i) // (i + 1)))
-
-    return line
-
-
 def generate_pascal_triangle(n):
     """
     Generate Pascal's triangle with the specified number of rows.
@@ -33,9 +15,13 @@ def generate_pascal_triangle(n):
     if n <= 0:
         return []
 
-    triangle = []
-
-    for i in range(n):
-        triangle.append(generate_line(i))
+    triangle = [[1]]
+    for i in range(1, n):
+        prev_row = triangle[-1]
+        new_row = [1]  # first element of the row
+        for j in range(1, i):
+            new_row.append(prev_row[j - 1] + prev_row[j])  # middle elements
+        new_row.append(1)  # last element of the row
+        triangle.append(new_row)
 
     return triangle
