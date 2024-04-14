@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-"""Functions for generating Pascal's triangle."""
+"""PRINT"""
 
 
 def pascal_triangle(n):
-    
+    """PRINT"""
     row = [1]
 
     for j in range(n):
@@ -13,7 +13,7 @@ def pascal_triangle(n):
 
 
 def print_triangle(n):
-    
+    """PRINT"""
     if n <= 0:
         return []
 
