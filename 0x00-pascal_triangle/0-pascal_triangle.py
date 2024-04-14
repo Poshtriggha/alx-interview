@@ -3,7 +3,9 @@
 
 
 def pascal_triangle(n):
-    """PRINT"""
+    """
+    Print the triangle
+    """
     row = [1]
 
     for j in range(n):
@@ -14,14 +16,16 @@ def pascal_triangle(n):
 
 
 def print_triangle(n):
-    """PRINT"""
+    """
+    Print the triangle
+    """
     if n <= 0:
         return []
 
     triangle = []
 
     for i in range(n):
-        #Calculate the values between the first and last indices 
+        #Calculate the values between the first and last indices.
         triangle.append(pascal_triangle(i + 1))
 
     return triangle
