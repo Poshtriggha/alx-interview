@@ -1,36 +1,27 @@
 #!/usr/bin/python3
-"""PRINT"""
+"""Pascal Triangle Interview Challenge"""
 
 
 def pascal_triangle(n):
-    """
-    Print the triangle
-    """
-    row = [1]
-
-    for j in range(n):
-        # define a row and fill first and last idx with 1
-        row.append((row[j] * (n - j) // (j + 1)))
-
-    return row
-
-
-def print_triangle(n):
-    """
-    Print the triangle
-    """
+    """returns a list of lists of numbers
+    representing the pascal triangle"""
     if n <= 0:
         return []
 
-    triangle = []
+    pascal_triangle = []
 
     for i in range(n):
-        #Calculate the values between the first and last indices.
-        triangle.append(pascal_triangle(i + 1))
+        # define a row and fill first and last idx with 1
+        new_row = [0] * (i + 1)
+        new_row[0] = 1
+        new_row[-1] = 1
+        
+        # obtain values between 1st and last index 
+        for j in range(1, i):
+            a = pascal_triangle[i - 1][j]
+            b = pascal_triangle[i - 1][j - 1]
+            new_row[j] = a + b
 
-    return triangle
+        pascal_triangle.append(new_row)
 
-
-triangle = print_triangle(5)
-for row in triangle:
-    print(row)
+    return pascal_triangle
