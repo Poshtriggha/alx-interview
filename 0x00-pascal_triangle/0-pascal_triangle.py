@@ -12,7 +12,7 @@ def pascal_triangle(n):
     return row
 
 
-def generate_pascal_triangle(n):
+def print_triangle(n):
     """Generates Pascal's triangle with n rows."""
     if n <= 0:
         return []
@@ -23,3 +23,8 @@ def generate_pascal_triangle(n):
         triangle.append(pascal_triangle(i + 1))
 
     return triangle
+
+# Example usage
+triangle = print_triangle(5)
+for row in triangle:
+    print(row)
