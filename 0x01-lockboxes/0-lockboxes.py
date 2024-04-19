@@ -1,30 +1,33 @@
 #!/usr/bin/python3
+"""A method that determines if all the boxes can be opened."""
+
 
 def canUnlockAll(boxes):
     """
-    Determine if all boxes can be opened.
+    Determines if all the boxes can be opened.
 
+    Args:
+        boxes (list): A list of lists representing the boxes and their keys.
+
+    Returns:
+        bool: True if all boxes can be opened, False otherwise.
     """
-    if not boxes:
+    if type(boxes) is not list:
         return False
 
-    keys = set(boxes[0])
-    unlocked = set([0])
+    if len(boxes) == 0:
+        return False
 
-    while keys:
-        key = keys.pop()
-        if key < len(boxes):
-            unlocked.add(key)
-            keys.update(boxes[key])
-
-    return len(unlocked) == len(boxes)
-
-if __name__ == "__main__":
-    boxes = [[1], [2], [3], [4], []]
-    print(canUnlockAll(boxes))
-
-    boxes = [[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]]
-    print(canUnlockAll(boxes))
-
-    boxes = [[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
-    print(canUnlockAll(boxes))
+    # Initialize a list to keep track of keys that have been discovered
+    the_keys = [0]
+    
+    # Iterate through the discovered keys
+    for k in the_keys:
+        # Iterate through the keys in the current box
+        for b in boxes[k]:
+            # Check if the key has not been discovered yet and it's a valid key
+            if b not in the_keys and b != k and 0 < b < len(boxes):
+                the_keys.append(b)
+    
+    # Check if all boxes can be opened
+    return len(the_keys) == len(boxes)
