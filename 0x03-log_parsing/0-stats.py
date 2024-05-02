@@ -1,38 +1,50 @@
 #!/usr/bin/python3
-"""AAA"""
+"""A script that reads stdin line by line and computes metrics."""
+
 import sys
-from collections import defaultdict
 
-def print_stats(total_size, status_counts):
-    print("File size: {}".format(total_size))
-    for status_code in sorted(status_counts.keys()):
-        print("{}: {}".format(status_code, status_counts[status_code]))
+def process_input():
+    """
+    Reads stdin line by line and computes metrics.
+    """
+    lines_dict = {'200': 0, '301': 0, '400': 0, '401': 0, '403': 0,
+                  '404': 0, '405': 0, '500': 0}
+    line_count = 0
+    total_size = 0
 
-def parse_line(line):
-    parts = line.split()
-    if len(parts) != 7:
-        return None, None
-    ip_address = parts[0]
-    status_code = parts[5]
-    file_size = parts[6]
-    if not status_code.isdigit():
-        return None, None
-    return int(status_code), int(file_size)
+    try:
+        for line in sys.stdin:
+            line_list = line.split(" ")
 
-total_size = 0
-status_counts = defaultdict(int)
-line_count = 0
+            if len(line_list) > 4:
+                status_code = line_list[-2]
+                file_size = int(line_list[-1])
 
-try:
-    for line in sys.stdin:
-        line = line.strip()
-        status_code, file_size = parse_line(line)
-        if status_code is None:
-            continue
-        total_size += file_size
-        status_counts[status_code] += 1
-        line_count += 1
-        if line_count % 10 == 0:
-            print_stats(total_size, status_counts)
-except KeyboardInterrupt:
-    print_stats(total_size, status_counts)
+                if status_code in lines_dict:
+                    lines_dict[status_code] += 1
+
+                total_size += file_size
+                line_count += 1
+
+                if line_count == 10:
+                    line_count = 0
+                    print('File size: {}'.format(total_size))
+                    print_status_codes(lines_dict)
+
+    except Exception as err:
+        pass
+
+    finally:
+        print('File size: {}'.format(total_size))
+        print_status_codes(lines_dict)
+
+def print_status_codes(status_dict):
+    """
+    Prints status codes and their counts.
+    """
+    for key, value in sorted(status_dict.items()):
+        if value != 0:
+            print('{}: {}'.format(key, value))
+
+if __name__ == "__main__":
+    process_input()
