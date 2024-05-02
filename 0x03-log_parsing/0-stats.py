@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""AAA"""
 import sys
 from collections import defaultdict
 
